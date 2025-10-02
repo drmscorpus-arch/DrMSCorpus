@@ -13,40 +13,33 @@
 
     .card{background:var(--card);box-shadow:0 6px 18px rgba(12,40,80,0.06);border-radius:12px;padding:18px}
 
-    /* Intro */
     .intro-flex{display:flex;gap:18px;align-items:flex-start}
-    .logo-placeholder{width:120px;height:120px;background:linear-gradient(135deg,var(--accent),#4aa3ff);border-radius:8px}
+    .logo-placeholder img{width:120px;height:120px;border-radius:8px}
     .intro-list{list-style:disc;margin:0;padding-left:18px}
 
     .center{display:flex;justify-content:center}
     .muted{color:var(--muted)}
 
-    /* Form */
     form .row{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px}
     label{display:block;font-size:13px;margin-bottom:6px}
     input[type=text],select{padding:10px;border-radius:8px;border:1px solid #d6e4ff;min-width:220px}
     button{background:var(--accent);color:white;padding:10px 14px;border-radius:8px;border:none;cursor:pointer}
 
-    /* grid for year blocks */
     .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:18px}
     .block{background:linear-gradient(180deg,#ffffff,#f8fdff);padding:18px;border-radius:10px;cursor:pointer;border:1px solid rgba(11,109,240,0.08)}
     .block h3{margin:0}
 
-    /* subjects grid */
     .subjects{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
-    .subject{padding:12px;border-radius:8px;border:1px dashed #cfe6ff;background:#fff;cursor:pointer}
-    .subject:hover{box-shadow:0 6px 12px rgba(11,109,240,0.06)}
+    .subject{padding:12px;border-radius:8px;border:1px dashed #cfe6ff;background:#fff}
 
-    /* files page */
     .files-wrap{display:flex;gap:12px;margin-top:12px}
     .lhs,.rhs{flex:1;background:#fff;padding:12px;border-radius:8px;border:1px solid #e6f0ff;height:70vh;overflow:auto}
-    .file-item{padding:8px;border-radius:6px;margin-bottom:8px;border:1px solid #eef5ff;display:flex;align-items:center;gap:8px}
+    .file-item{padding:8px;border-radius:6px;margin-bottom:8px;border:1px solid #eef5ff}
     .file-item a{font-weight:600;text-decoration:none}
     .viewer{width:100%;height:100%}
 
     footer{margin-top:18px;text-align:center;color:var(--muted);font-size:13px}
 
-    /* small screens */
     @media(max-width:720px){.subjects{grid-template-columns:repeat(2,1fr)}.files-wrap{flex-direction:column}.grid{grid-template-columns:1fr}}
   </style>
 </head>
@@ -60,9 +53,9 @@
     <section id="intro" class="card">
       <div style="display:flex;justify-content:center;align-items:center;flex-direction:column;gap:14px">
         <div style="width:100%;display:flex;align-items:flex-start;gap:18px">
-          <!-- Logo placeholder: replace with your image later -->
-          <div class="logo-placeholder" id="logoPlaceholder" title="Replace this with your logo image"></div>
-
+          <div class="logo-placeholder" id="logoPlaceholder" title="Logo here">
+            <img src="logo.jpeg" alt="Logo">
+          </div>
           <div style="flex:1">
             <ul class="intro-list">
               <li>xyzxyz</li>
@@ -71,7 +64,6 @@
             </ul>
           </div>
         </div>
-
         <div class="center">
           <button id="startBtn">Get Started</button>
         </div>
@@ -87,7 +79,6 @@
             <label for="name">Name</label>
             <input id="name" type="text" placeholder="Your full name" required />
           </div>
-
           <div>
             <label for="role">Role</label>
             <select id="role">
@@ -96,7 +87,6 @@
               <option value="other">Other</option>
             </select>
           </div>
-
           <div>
             <label id="yrLabel" for="yearOfStudy">Year of study</label>
             <select id="yearOfStudy">
@@ -106,18 +96,15 @@
               <option value="final2">Final yr part 2</option>
             </select>
           </div>
-
           <div>
             <label for="batch">Batch (for teaching)</label>
             <input id="batch" type="text" placeholder="e.g. Batch A / 2024" />
           </div>
-
           <div style="flex:1;min-width:260px">
             <label for="college">Medical college</label>
             <input id="college" type="text" placeholder="Your college name" />
           </div>
         </div>
-
         <div style="margin-top:12px;display:flex;gap:8px">
           <button type="submit">Next</button>
           <button type="button" id="toIntro">Back</button>
@@ -170,183 +157,138 @@
   </div>
 
   <script>
-    // ----- Configuration: add your real files in FILES_DATA below -----
-    // Structure: FILES_DATA[year][subject] = { pdfs: [{name, url}], ppts: [{name, url}] }
     const FILES_DATA = {
-      '1st': {
-        'Anatomy': { pdfs:[{name:'Anatomy notes 1',url:'files/pdfs/anatomy-notes.pdf'}], ppts:[{name:'Anatomy PPT 1',url:'files/ppts/anatomy-1.pptx'}]},
-        'Physiology': { pdfs:[{name:'Physiology notes',url:'files/pdfs/physio.pdf'}], ppts:[{name:'Physiology PPT',url:'files/ppts/physio.pptx'}]},
-        'Biochemistry': { pdfs:[{name:'Biochemistry notes',url:'files/pdfs/bioch.pdf'}], ppts:[{name:'Biochemistry PPT',url:'files/ppts/bioch.pptx'}]}
-      },
-      '2nd':{
-        'Pathology': { pdfs:[{name:'Pathology notes',url:'files/pdfs/path.pdf'}], ppts:[{name:'Pathology PPT',url:'files/ppts/path.pptx'}]},
-        'Pharmacology': { pdfs:[{name:'Pharmacology notes',url:'files/pdfs/pharm.pdf'}], ppts:[{name:'Pharmacology PPT',url:'files/ppts/pharm.pptx'}]},
-        'Microbiology': { pdfs:[{name:'Micro notes',url:'files/pdfs/micro.pdf'}], ppts:[{name:'Micro PPT',url:'files/ppts/micro.pptx'}]}
-      },
-      // Final year part 1 (4 subjects)
-      'final1':{
-        'Medicine': { pdfs:[{name:'Medicine notes',url:'files/pdfs/med.pdf'}], ppts:[{name:'Medicine PPT',url:'files/ppts/med.pptx'}]},
-        'Surgery': { pdfs:[{name:'Surgery notes',url:'files/pdfs/surg.pdf'}], ppts:[{name:'Surgery PPT',url:'files/ppts/surg.pptx'}]},
-        'Obstetrics': { pdfs:[{name:'Obs notes',url:'files/pdfs/obs.pdf'}], ppts:[{name:'Obs PPT',url:'files/ppts/obs.pptx'}]},
-        'Pediatrics': { pdfs:[{name:'Peds notes',url:'files/pdfs/peds.pdf'}], ppts:[{name:'Peds PPT',url:'files/ppts/peds.pptx'}]}
-      },
-      // Final year part 2 (9 subjects)
-      'final2':{
-        'Anaesthesia': { pdfs:[{name:'Anaesthesia notes',url:'files/pdfs/anes.pdf'}], ppts:[{name:'Anaesthesia PPT',url:'files/ppts/anes.pptx'}]},
-        'Orthopaedics': { pdfs:[{name:'Ortho notes',url:'files/pdfs/ortho.pdf'}], ppts:[{name:'Ortho PPT',url:'files/ppts/ortho.pptx'}]},
-        'ENT': { pdfs:[{name:'ENT notes',url:'files/pdfs/ent.pdf'}], ppts:[{name:'ENT PPT',url:'files/ppts/ent.pptx'}]},
-        'Ophthalmology': { pdfs:[{name:'Optho notes',url:'files/pdfs/optho.pdf'}], ppts:[{name:'Optho PPT',url:'files/ppts/optho.pptx'}]},
-        'Dermatology': { pdfs:[{name:'Derm notes',url:'files/pdfs/derm.pdf'}], ppts:[{name:'Derm PPT',url:'files/ppts/derm.pptx'}]},
-        'Psychiatry': { pdfs:[{name:'Psych notes',url:'files/pdfs/psych.pdf'}], ppts:[{name:'Psych PPT',url:'files/ppts/psych.pptx'}]},
-        'Radiology': { pdfs:[{name:'Radio notes',url:'files/pdfs/radio.pdf'}], ppts:[{name:'Radio PPT',url:'files/ppts/radio.pptx'}]},
-        'Forensic': { pdfs:[{name:'Forensic notes',url:'files/pdfs/forensic.pdf'}], ppts:[{name:'Forensic PPT',url:'files/ppts/forensic.pptx'}]},
-        'Community Medicine': { pdfs:[{name:'CM notes',url:'files/pdfs/cm.pdf'}], ppts:[{name:'CM PPT',url:'files/ppts/cm.pptx'}]}
-      }
-    };
+  '1st': {
+    'Anatomy': { pdfs:[{name:'Anatomy notes',url:'files/1st/Anatomy/pdfs/anatomy-notes.pdf'}], ppts:[{name:'Anatomy PPT',url:'files/1st/Anatomy/ppts/anatomy.pptx'}]},
+    'Physiology': { pdfs:[{name:'Physiology notes',url:'files/1st/Physiology/pdfs/physio.pdf'}], ppts:[{name:'Physiology PPT',url:'files/1st/Physiology/ppts/physio.pptx'}]},
+    'Biochemistry': { pdfs:[{name:'Biochemistry notes',url:'files/1st/Biochemistry/pdfs/bioch.pdf'}], ppts:[{name:'Biochemistry PPT',url:'files/1st/Biochemistry/ppts/bioch.pptx'}]}
+  },
+  '2nd':{
+    'Pathology': { pdfs:[{name:'Pathology notes',url:'files/2nd/Pathology/pdfs/path.pdf'}], ppts:[{name:'Pathology PPT',url:'files/2nd/Pathology/ppts/path.pptx'}]},
+    'Pharmacology': { pdfs:[{name:'Pharmacology notes',url:'files/2nd/Pharmacology/pdfs/pharm.pdf'}], ppts:[{name:'Pharmacology PPT',url:'files/2nd/Pharmacology/ppts/pharm.pptx'}]},
+    'Microbiology': { pdfs:[{name:'Micro notes',url:'files/2nd/Microbiology/pdfs/micro.pdf'}], ppts:[{name:'Micro PPT',url:'files/2nd/Microbiology/ppts/micro.pptx'}]}
+  },
+  'final1':{
+    'Forensic Medicine': { pdfs:[{name:'Forensic notes',url:'files/final1/Forensic Medicine/pdfs/forensic.pdf'}], ppts:[{name:'Forensic PPT',url:'files/final1/Forensic Medicine/ppts/forensic.pptx'}]},
+    'Community Medicine': { pdfs:[{name:'Community notes',url:'files/final1/Community Medicine/pdfs/cm.pdf'}], ppts:[{name:'Community PPT',url:'files/final1/Community Medicine/ppts/cm.pptx'}]},
+    'Ophthalmology': { pdfs:[{name:'Ophtho notes',url:'files/final1/Ophthalmology/pdfs/ophtho.pdf'}], ppts:[{name:'Ophtho PPT',url:'files/final1/Ophthalmology/ppts/ophtho.pptx'}]},
+    'ENT': { pdfs:[{name:'ENT notes',url:'files/final1/ENT/pdfs/ent.pdf'}], ppts:[{name:'ENT PPT',url:'files/final1/ENT/ppts/ent.pptx'}]}
+  },
+  'final2':{
+    'Medicine': { pdfs:[{name:'Medicine notes',url:'files/final2/Medicine/pdfs/med.pdf'}], ppts:[{name:'Medicine PPT',url:'files/final2/Medicine/ppts/med.pptx'}]},
+    'Surgery': { pdfs:[{name:'Surgery notes',url:'files/final2/Surgery/pdfs/surgery.pdf'}], ppts:[{name:'Surgery PPT',url:'files/final2/Surgery/ppts/surgery.pptx'}]},
+    'Obstetrics & Gynaecology': { pdfs:[{name:'OBG notes',url:'files/final2/Obstetrics & Gynaecology/pdfs/obg.pdf'}], ppts:[{name:'OBG PPT',url:'files/final2/Obstetrics & Gynaecology/ppts/obg.pptx'}]},
+    'Pediatrics': { pdfs:[{name:'Pediatrics notes',url:'files/final2/Pediatrics/pdfs/pedia.pdf'}], ppts:[{name:'Pediatrics PPT',url:'files/final2/Pediatrics/ppts/pedia.pptx'}]},
+    'Psychiatry': { pdfs:[{name:'Psych notes',url:'files/final2/Psychiatry/pdfs/psych.pdf'}], ppts:[{name:'Psych PPT',url:'files/final2/Psychiatry/ppts/psych.pptx'}]},
+    'Dermatology': { pdfs:[{name:'Derm notes',url:'files/final2/Dermatology/pdfs/derm.pdf'}], ppts:[{name:'Derm PPT',url:'files/final2/Dermatology/ppts/derm.pptx'}]},
+    'Orthopaedics': { pdfs:[{name:'Ortho notes',url:'files/final2/Orthopaedics/pdfs/ortho.pdf'}], ppts:[{name:'Ortho PPT',url:'files/final2/Orthopaedics/ppts/ortho.pptx'}]},
+    'ENT': { pdfs:[{name:'ENT notes',url:'files/final2/ENT/pdfs/ent.pdf'}], ppts:[{name:'ENT PPT',url:'files/final2/ENT/ppts/ent.pptx'}]},
+    'Ophthalmology': { pdfs:[{name:'Ophtho notes',url:'files/final2/Ophthalmology/pdfs/ophtho.pdf'}], ppts:[{name:'Ophtho PPT',url:'files/final2/Ophthalmology/ppts/ophtho.pptx'}]}
+  }
+};
 
-    // ----- App logic -----
+
     const intro = document.getElementById('intro');
     const details = document.getElementById('details');
     const yearSelect = document.getElementById('yearSelect');
     const subjectsPage = document.getElementById('subjectsPage');
     const filesPage = document.getElementById('filesPage');
 
-    // Navigation: Get Started / Back
-    document.getElementById('startBtn').addEventListener('click', () => {
-      intro.style.display = 'none';
-      details.style.display = 'block';
-    });
-    document.getElementById('toIntro').addEventListener('click', () => {
-      details.style.display = 'none';
-      intro.style.display = 'block';
-    });
+    document.getElementById('startBtn').addEventListener('click',()=>{intro.style.display='none'; details.style.display='block';});
+    document.getElementById('toIntro').addEventListener('click',()=>{details.style.display='none'; intro.style.display='block';});
 
-    // Form submit -> log to localStorage + CSV download -> go to yearSelect
     const form = document.getElementById('visitorForm');
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', (e)=>{
       e.preventDefault();
       const data = {
-        name: document.getElementById('name').value || '',
-        role: document.getElementById('role').value || '',
-        yearOfStudy: document.getElementById('yearOfStudy').value || '',
-        batch: document.getElementById('batch').value || '',
-        college: document.getElementById('college').value || '',
+        name: document.getElementById('name').value||'',
+        role: document.getElementById('role').value||'',
+        yearOfStudy: document.getElementById('yearOfStudy').value||'',
+        batch: document.getElementById('batch').value||'',
+        college: document.getElementById('college').value||'',
         date: new Date().toISOString()
       };
 
-      // Save to localStorage as a simple log (since no server is present).
-      let logs = JSON.parse(localStorage.getItem('drms_visits') || '[]');
+      let logs = JSON.parse(localStorage.getItem('drms_visits')||'[]');
       logs.push(data);
       localStorage.setItem('drms_visits', JSON.stringify(logs));
 
-      // Also create a CSV and prompt download so you have an "excel-compatible" file.
       const csv = [_csvRow(Object.keys(data)), _csvRow(Object.values(data))].join('\n');
-      const blob = new Blob([csv], {type:'text/csv'});
+      const blob = new Blob([csv],{type:'text/csv'});
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
-      a.href = url;
-      a.download = 'DrMS_Corpus_visit_'+(new Date()).toISOString().slice(0,10)+'.csv';
+      a.href = url; a.download = 'DrMS_Corpus_visit_'+(new Date()).toISOString().slice(0,10)+'.csv';
       document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
 
-      details.style.display = 'none';
-      yearSelect.style.display = 'block';
+      details.style.display='none';
+      yearSelect.style.display='block';
     });
 
-    function _csvRow(arr){ return arr.map(v => ('"' + String(v).replace(/"/g,'""') + '"')).join(','); }
+    function _csvRow(arr){return arr.map(v=>('"'+String(v).replace(/"/g,'""')+'"')).join(',');}
+    document.getElementById('backToDetails').addEventListener('click',()=>{yearSelect.style.display='none'; details.style.display='block';});
 
-    document.getElementById('backToDetails').addEventListener('click', () => {
-      yearSelect.style.display = 'none';
-      details.style.display = 'block';
-    });
-
-    // year blocks click -> show subjects (works for 1st,2nd,final1,final2)
-    document.querySelectorAll('.block').forEach(b => {
-      b.addEventListener('click', () => {
+    document.querySelectorAll('.block').forEach(b=>{
+      b.addEventListener('click',()=>{
         const year = b.getAttribute('data-year');
         showSubjects(year);
-        yearSelect.style.display = 'none';
-        subjectsPage.style.display = 'block';
+        yearSelect.style.display='none';
+        subjectsPage.style.display='block';
       });
     });
-
-    document.getElementById('backToYears').addEventListener('click', () => {
-      subjectsPage.style.display = 'none';
-      yearSelect.style.display = 'block';
-    });
+    document.getElementById('backToYears').addEventListener('click',()=>{subjectsPage.style.display='none'; yearSelect.style.display='block';});
 
     function showSubjects(year){
       const grid = document.getElementById('subjectsGrid');
-      grid.innerHTML = '';
-
-      // get subjects for the year
-      const subjects = Object.keys(FILES_DATA[year] || {});
+      grid.innerHTML='';
+      const subjects = Object.keys(FILES_DATA[year]||{});
       document.getElementById('subjectsTitle').textContent = `Subjects — ${_prettyYear(year)}`;
-
-      if (subjects.length === 0) {
-        const msg = document.createElement('div');
-        msg.className = 'muted';
-        msg.textContent = 'No subjects defined for this year yet.';
-        grid.appendChild(msg);
-        return;
-      }
-
-      subjects.forEach(sub => {
-        const d = document.createElement('div');
-        d.className = 'subject';
-        d.textContent = sub;
-        d.addEventListener('click', () => {
-          openFilesPage(year, sub);
-          subjectsPage.style.display = 'none';
-          filesPage.style.display = 'block';
-        });
+      subjects.forEach(sub=>{
+        const d = document.createElement('div'); d.className='subject'; d.textContent=sub;
+        d.addEventListener('click',()=>{ openFilesPage(year,sub); subjectsPage.style.display='none'; filesPage.style.display='block'; });
         grid.appendChild(d);
       });
     }
 
-    function openFilesPage(year, subject){
+    function openFilesPage(year,subject){
       document.getElementById('subjectName').textContent = subject;
-      const data = (FILES_DATA[year] || {})[subject] || {pdfs:[], ppts:[]};
-      const pdfList = document.getElementById('pdfList'); pdfList.innerHTML = '';
-      const pptList = document.getElementById('pptList'); pptList.innerHTML = '';
+      const data = (FILES_DATA[year]||{})[subject]||{pdfs:[],ppts:[]};
+      const pdfList = document.getElementById('pdfList'); pdfList.innerHTML='';
+      const pptList = document.getElementById('pptList'); pptList.innerHTML='';
 
-      // PDFs (view only)
-      if (!data.pdfs || data.pdfs.length === 0) {
-        const p = document.createElement('div'); p.className='muted'; p.textContent = 'No PDF documents available yet.';
-        pdfList.appendChild(p);
-      } else {
-        data.pdfs.forEach(f => {
-          const item = document.createElement('div'); item.className='file-item';
-          const btn = document.createElement('button'); btn.textContent = 'View'; btn.style.marginRight='8px';
-          btn.addEventListener('click', () => { openViewer(f.url, f.name); });
-          const span = document.createElement('span'); span.textContent = f.name;
-          item.appendChild(btn); item.appendChild(span);
-          pdfList.appendChild(item);
-        });
-      }
+      data.pdfs.forEach(f=>{
+        const item = document.createElement('div'); item.className='file-item';
+        const btn = document.createElement('button'); btn.textContent = 'View'; btn.style.marginRight='8px';
+        btn.addEventListener('click', ()=>{ openViewer(f.url,f.name); });
+        const span = document.createElement('span'); span.textContent = f.name;
+        item.appendChild(btn); item.appendChild(span);
+        pdfList.appendChild(item);
+      });
 
-      // PPTs (downloadable)
-      if (!data.ppts || data.ppts.length === 0) {
-        const p = document.createElement('div'); p.className='muted'; p.textContent = 'No PPTs available yet.';
-        pptList.appendChild(p);
-      } else {
-        data.ppts.forEach(f => {
-          const item = document.createElement('div'); item.className='file-item';
-          const a = document.createElement('a'); a.href = f.url; a.textContent = f.name; a.setAttribute('download','');
-          item.appendChild(a);
-          pptList.appendChild(item);
-        });
-      }
+      data.ppts.forEach(f=>{
+        const item = document.createElement('div'); item.className='file-item';
+        const a = document.createElement('a'); a.href = f.url; a.textContent = f.name; a.setAttribute('download','');
+        item.appendChild(a);
+        pptList.appendChild(item);
+      });
 
-      document.getElementById('backToSubjects').onclick = () => {
-        filesPage.style.display = 'none';
-        subjectsPage.style.display = 'block';
-      };
+      document.getElementById('backToSubjects').onclick = ()=>{filesPage.style.display='none'; subjectsPage.style.display='block';}
     }
 
-    // Simple viewer modal (PDF embed). Note: complete prevention of download requires server headers.
-    function openViewer(url, title){
+    function openViewer(url,title){
       const w = window.open('', '_blank');
-      const html = `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${title}</title></head><body style="margin:0;height:100%;display:flex;flex-direction:column"><div style="padding:8px;background:#0b6df0;color:#fff;display:flex;justify-content:space-between;align-items:center"><div>${title}</div><div><button onclick="window.close()" style="background:#fff;border:none;padding:6px;border-radius:6px;cursor:pointer">Close</button></div></div><div style="flex:1">${(typeof url === 'string' && url.endsWith('.pdf')) ? `<iframe src="${url}" style="width:100%;height:100%;border:none"></iframe>` : `<p style="padding:18px">Cannot preview file type. Please place a PDF to preview here.</p>`}</div></body></html>`;
+      const html = `<!doctype html><html><head>
+        <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>${title}</title></head>
+        <body style="margin:0;height:100%;display:flex;flex-direction:column">
+          <div style="padding:8px;background:#0b6df0;color:#fff;display:flex;justify-content:space-between;align-items:center">
+            <div>${title}</div>
+            <div><button onclick="window.close()" style="background:#fff;border:none;padding:6px;border-radius:6px;cursor:pointer">Close</button></div>
+          </div>
+          <div style="flex:1">
+            ${url.endsWith('.pdf') ? `<iframe src="${url}" style="width:100%;height:100%;border:none"></iframe>`
+                                   : `<p style="padding:18px">Cannot preview file type. Please place a PDF to preview here.</p>`}
+          </div>
+        </body></html>`;
       w.document.write(html);
       w.document.close();
     }
@@ -360,16 +302,6 @@
         default:return y;
       }
     }
-
-    // Optional: prevent casual right-click download on iframes (not foolproof)
-    document.addEventListener('contextmenu', function(e){
-      // Allow right-click in form inputs or when selection needed
-      if (e.target.closest && e.target.closest('form')) return;
-      // If the right click is over the viewer iframe, prevent it (soft deterrent)
-      if (e.target.tagName === 'IFRAME') {
-        e.preventDefault();
-      }
-    });
   </script>
 </body>
 </html>
